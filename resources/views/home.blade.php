@@ -14,6 +14,9 @@
                 {{ session('updated') }}
             </div>
         @endif
+            @isset($prof)
+                <h2 class="text-title mb-3">Cours de {{ $prof->name }}</h2>
+            @endif
         @isset($matiere)
             <h2 class="text-title mb-3">{{ $matiere->name }}</h2>
         @endif
@@ -26,11 +29,9 @@
         <div class="card-columns">
             @foreach($cours as $cour)
                 <div class="card" id="cours{{ $cour->id }}">
-                    <a href="{{ url('storage/' . $cour->name) }}" class="cour-link">
                         <img class="card-img-top"
                              src="{{ url('storage/' . $cour->name) }}"
                              alt="cours" width="250" height="200">
-                    </a>
                     @isset($cour->description)
                         <div class="card-body">
                             <p class="card-text">{{ $cour->description }}</p>
@@ -75,6 +76,12 @@
                                            title="@lang('Changer de matière')">
                                            <i class="fa fa-edit"></i>
                                         </a>
+                                        <a class="albums-manage"
+                                           href="{{ route('cours.profs', $cour->id) }}"
+                                           data-toggle="tooltip"
+                                           title="@lang('Gérer les professeurs')">
+                                            <i class="fa fa-folder-open"></i>
+                                        </a>
                                     </span>
                                     <form action="{{ route('cours.destroy', $cour->id) }}" method="POST" class="hide">
                                         @csrf
@@ -93,7 +100,11 @@
             {{ $cours->links() }}
         </div>
     </main>
-
+    @if($cours->count() == 0)
+        <div class="alert alert-info" type="alert">
+            Pas de cours
+        </div>
+    @endif
     <div class="modal fade" id="changeDescription" tabindex="-1" role="dialog" aria-labelledby="descriptionLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -138,6 +149,24 @@
                                 @endforeach
                             </select>
                         </div>
+                        <button type="submit" class="btn btn-primary">@lang('Envoyer')</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editProfs" tabindex="-1" role="dialog" aria-labelledby="profLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profLabel">@lang("Gestion du professeur pour le cours")</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="manageProfs" action="" method="POST">
+                        <div class="form-group" id="listeProfs"></div>
                         <button type="submit" class="btn btn-primary">@lang('Envoyer')</button>
                     </form>
                 </div>
@@ -234,6 +263,44 @@
                 $('select').val(that.attr('data-id'))
                 $('#editForm').attr('action', that.attr('href'))
                 $('#changeMatiere').modal('show')
+            })
+
+            $('a.profs-manage').click((e) => {
+                e.preventDefault()
+                let that = $(e.currentTarget)
+                that.tooltip('hide')
+                that.children().removeClass('fa-folder-open').addClass('fa-cog fa-spin')
+                e.preventDefault()
+                $.get(that.attr('href'))
+                    .done((data) => {
+                        that.children().addClass('fa-folder-open').removeClass('fa-cog fa-spin')
+                        $('#listeProfs').html(data)
+                        $('#manageProfs').attr('action', that.attr('href'))
+                        $('#editProfs').modal('show')
+                    })
+                    .fail(() => {
+                        that.children().addClass('fa-folder-open').removeClass('fa-cog fa-spin')
+                        swallAlertServer()
+                    })
+            })
+            $('#manageProfs').submit((e) => {
+                e.preventDefault()
+                let that = $(e.currentTarget)
+                $.ajax({
+                    method: 'put',
+                    url: that.attr('action'),
+                    data: that.serialize()
+                })
+                    .done((data) => {
+                        if(data === 'reload') {
+                            location.reload();
+                        } else {
+                            $('#editProfs').modal('hide')
+                        }
+                    })
+                    .fail(() => {
+                        swallAlertServer()
+                    })
             })
 
         })

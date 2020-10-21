@@ -31,11 +31,30 @@
                     @endforeach
                 </div>
             </li>
+            @isset($profs)
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle
+            @isset($prof)
+                    {{ currentRoute(route('prof', $prof->slug))}}
+                    @endisset
+                        " href="#" id="navbarDropdownAlbum" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @lang('Professeurs')
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownAlbum">
+                        @foreach($profs as $prof)
+                            <a class="dropdown-item"
+                               href="{{ route('prof', $prof->slug) }}">{{ $prof->name }}</a>
+                        @endforeach
+                    </div>
+                </li>
+            @endisset
             @admin
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle{{ currentRoute(
                             route('matiere.create'),
                             route('matiere.index'),
+                            route('prof.create'),
+                            route('prof.index'),
                             route('matiere.edit', request()->matiere?: 0)
                         )}}" href="#" id="navbarDropdownGestCat" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -47,6 +66,12 @@
                     </a>
                     <a class="dropdown-item" href="{{ route('matiere.index') }}">
                         <i class="fas fa-wrench fa-lg"></i> @lang('Gérer les matières')
+                    </a>
+                    <a class="dropdown-item" href="{{ route('prof.create') }}">
+                        <i class="fas fa-child fa-lg"></i> @lang('Ajouter un professeur')
+                    </a>
+                    <a class="dropdown-item" href="{{ route('prof.index') }}">
+                        <i class="fas fa-wrench fa-lg"></i> @lang('Gérer les profs')
                     </a>
                 </div>
             </li>
@@ -71,6 +96,12 @@
                 <li class="nav-item{{ currentRoute(route('login')) }}"><a class="nav-link" href="{{ route('login') }}">@lang('Connexion')</a></li>
                 <li class="nav-item{{ currentRoute(route('register')) }}"><a class="nav-link" href="{{ route('register') }}">@lang('Inscription')</a></li>
             @else
+                <li class="nav-item{{ currentRoute(
+                    route('profile.edit', auth()->id()),
+                    route('profile.show', auth()->id())
+                )}}">
+                    <a class="nav-link" href="{{ route('profile.edit', auth()->id()) }}">@lang('Profil')</a>
+                </li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" href="{{ route('logout') }}">@lang('Déconnexion')</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hide">

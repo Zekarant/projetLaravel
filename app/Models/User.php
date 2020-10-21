@@ -26,4 +26,19 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function getSettingsAttribute($value)
+    {
+        return json_decode ($value);
+    }
+
+    public function getPaginationAttribute()
+    {
+        return $this->settings->pagination;
+    }
+    public function profs()
+    {
+        return $this->hasMany (Prof::class);
+    }
+
 }

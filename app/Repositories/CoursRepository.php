@@ -46,5 +46,17 @@ class CoursRepository
         })->paginate(config('app.pagination'));
     }
 
+    public function getImagesForAlbum($slug)
+    {
+        return Cours::latestWithUser ()->whereHas ('profs', function ($query) use ($slug) {
+            $query->whereSlug ($slug);
+        })->paginate(config('app.pagination'));
+    }
+
+    public function isNotInAlbum($cours, $prof)
+    {
+        return $cours->profs()->where('profs.id', $prof->id)->doesntExist();
+    }
+
 
 }

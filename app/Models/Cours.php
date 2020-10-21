@@ -17,4 +17,9 @@ class Cours extends Model
     public function scopeLatestWithUser($query){
         return $query->with ('user')->latest();
     }
+
+    public function profs()
+    {
+        return $this->belongsToMany (Prof::class);
+    }
 }
