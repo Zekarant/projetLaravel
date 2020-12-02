@@ -7,7 +7,7 @@ use App\Repositories\ {
     CoursRepository, MatiereRepository, ProfRepository
 };
 use App\Models\ {
-    User, Cours
+    User, Cours, Prof
 };
 
 
@@ -34,6 +34,7 @@ class CoursController extends Controller
             'image' => 'required|image|max:6000',
             'matiere_id' => 'required|exists:matieres,id',
             'description' => 'nullable|string|max:255',
+            'lien' => 'required|string|max:255',
         ]);
 
         $this->coursRepository->store($request);
@@ -59,6 +60,7 @@ class CoursController extends Controller
     public function destroy(Cours $cour)
     {
         $this->authorize('manage', $cour);
+        unlink(public_path('storage/' . $cour->name));
         $cour->delete();
         return back();
     }
@@ -91,7 +93,7 @@ class CoursController extends Controller
     public function profs(Request $request,  Cours $cours)
     {
         $this->authorize ('manage', $cours);
-        $profs = $this->profRepository->getAlbumsWithImages ($request->user ());
+        $profs = Prof::all();
         return view ('cours.profs', compact('profs', 'cours'));
     }
 
@@ -99,7 +101,7 @@ class CoursController extends Controller
     {
         $this->authorize('manage', $cours);
 
-        $cours->albums()->sync($request->profs);
+        $cours->profs()->sync($request->profs);
         $path = pathinfo (parse_url(url()->previous())['path']);
         if($path['dirname'] === '/prof') {
             $prof = $this->profRepository->getBySlug($path['basename']);
@@ -108,5 +110,24 @@ class CoursController extends Controller
             }
         }
         return response ()->json();
+    }
+
+    public function rate(Request $request, Cours $cours)
+    {
+        $user = $request->user();
+        // Is user image owner ?
+        if($this->coursRepository->isOwner ($user, $cours)) {
+            return response()->json(['status' => 'no']);
+        }
+        // Rating
+        $rate = $this->coursRepository->rateCour($user, $cours, $request->value);
+        $this->coursRepository->setCourRate($cours);
+        return [
+            'status' => 'ok',
+            'id' => $cours->id,
+            'value' => $cours->rate,
+            'count' => $cours->users->count(),
+            'rate' => $rate
+        ];
     }
 }

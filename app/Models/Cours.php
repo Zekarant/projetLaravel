@@ -18,8 +18,13 @@ class Cours extends Model
         return $query->with ('user')->latest();
     }
 
-    public function profs()
+    public function prof()
     {
-        return $this->belongsToMany (Prof::class);
+        return $this->belongsToMany(Prof::class, 'prof_id');
     }
+    public function users()
+    {
+        return $this->belongsToMany (User::class)->withPivot('rating');
+    }
+
 }

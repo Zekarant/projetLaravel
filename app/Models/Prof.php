@@ -13,6 +13,6 @@ class Prof extends Model
 
     public function cours()
     {
-        return $this->belongsToMany(Cours::class);
+        return $this->hasMany(Cours::class);
     }
 }

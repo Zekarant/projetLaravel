@@ -29,9 +29,9 @@
         <div class="card-columns">
             @foreach($cours as $cour)
                 <div class="card" id="cours{{ $cour->id }}">
-                        <img class="card-img-top"
+                        <a href="{{ $cour->lien }}"><img class="card-img-top"
                              src="{{ url('storage/' . $cour->name) }}"
-                             alt="cours" width="250" height="200">
+                                        alt="cours" width="250" height="200"></a>
                     @isset($cour->description)
                         <div class="card-body">
                             <p class="card-text">{{ $cour->description }}</p>
@@ -76,7 +76,7 @@
                                            title="@lang('Changer de matière')">
                                            <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="albums-manage"
+                                        <a class="profs-manage"
                                            href="{{ route('cours.profs', $cour->id) }}"
                                            data-toggle="tooltip"
                                            title="@lang('Gérer les professeurs')">
@@ -90,7 +90,23 @@
                                 @endadminOrOwner
                             </span>
                         </div>
-
+                        <div class="star-rating" id="{{ $cour->id }}">
+                            <span class="count-number">({{ $cour->users->count() }})</span>
+                            <div id="{{ $cour->id . '.5' }}" data-toggle="tooltip" title="5" @if($cour->rate > 4) class="star-yellow" @endif>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div id="{{ $cour->id . '.4' }}" data-toggle="tooltip" title="4" @if($cour->rate > 3) class="star-yellow" @endif>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div id="{{ $cour->id . '.3' }}" data-toggle="tooltip" title="3" @if($cour->rate > 2) class="star-yellow" @endif>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div id="{{ $cour->id . '.2' }}" data-toggle="tooltip" title="2" @if($cour->rate > 1) class="star-yellow" @endif>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div id="{{ $cour->id . '.1' }}" data-toggle="tooltip" title="1" @if($cour->rate > 0) class="star-yellow" @endif>
+                                <i class="fas fa-star"></i>
+                            </div>
 
                     </div>
                 </div>
@@ -302,6 +318,83 @@
                         swallAlertServer()
                     })
             })
+
+            let memoStars = []
+
+            $('.star-rating div').click((e) => {
+                @auth
+                let element = $(e.currentTarget)
+                let values = element.attr('id').split('.')
+                element.addClass('fa-spin')
+                $.ajax({
+                    url: "{{ url('rating') }}" + '/' + values[0],
+                    type: 'PUT',
+                    data: {value: values[1]}
+                })
+                    .done((data) => {
+                        if (data.status === 'ok') {
+                            let cour = $('#' + data.id)
+                            memoStars = []
+                            cour.children('div')
+                                .removeClass('star-yellow')
+                                .each(function (index, element) {
+                                    if (data.value > 4 - index) {
+                                        $(element).addClass('star-yellow')
+                                        memoStars.push(true)
+                                    }
+                                    memoStars.push(false)
+                                })
+                                .end()
+                                .find('span.count-number')
+                                .text('(' + data.count + ')')
+                            if(data.rate) {
+                                if(data.rate == values[1]) {
+                                    title = '@lang("Vous avez déjà donné cette note !")'
+                                } else {
+                                    title = '@lang("Votre vote a été modifié !")'
+                                }
+                            } else {
+                                title = '@lang("Merci pour votre vote !")'
+                            }
+                            swal.fire({
+                                title: title,
+                                icon: 'warning'
+                            })
+                        } else {
+                            swal.fire({
+                                title: '@lang('Vous ne pouvez pas voter pour vos photos !')',
+                                icon: 'error'
+                            })
+                        }
+                        element.removeClass('fa-spin')
+                    })
+                    .fail(() => {
+                        swallAlertServer()
+                        element.removeClass('fa-spin')
+                    })
+                @else
+                swal.fire({
+                    title: '@lang('Vous devez être connecté pour pouvoir voter !')',
+                    icon: 'error'
+                })
+                @endauth
+            })
+
+            $('.star-rating').hover(
+                (e) => {
+                    memoStars = []
+                    $(e.currentTarget).children('div')
+                        .each((index, element) => {
+                            memoStars.push($(element).hasClass('star-yellow'))
+                        })
+                        .removeClass('star-yellow')
+                }, (e) => {
+                    $.each(memoStars, (index, value) => {
+                        if(value) {
+                            $(e.currentTarget).children('div:eq(' + index + ')').addClass('star-yellow')
+                        }
+                    })
+                })
 
         })
     </script>

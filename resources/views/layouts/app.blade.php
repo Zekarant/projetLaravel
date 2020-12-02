@@ -55,7 +55,8 @@
                             route('matiere.index'),
                             route('prof.create'),
                             route('prof.index'),
-                            route('matiere.edit', request()->matiere?: 0)
+                            route('matiere.edit', request()->matiere?: 0),
+                            route('user.index'),
                         )}}" href="#" id="navbarDropdownGestCat" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     @lang('Administration')
@@ -72,6 +73,9 @@
                     </a>
                     <a class="dropdown-item" href="{{ route('prof.index') }}">
                         <i class="fas fa-wrench fa-lg"></i> @lang('Gérer les profs')
+                    </a>
+                    <a class="dropdown-item" href="{{ route('user.index') }}">
+                        <i class="fas fa-users fa-lg"></i> @lang('Utilisateurs')
                     </a>
                 </div>
             </li>

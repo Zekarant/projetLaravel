@@ -10,6 +10,15 @@ Route::middleware ('admin')->group (function () {
         'except' => 'show'
     ]);
 
+    Route::resource ('user', 'UserController', [
+        'only' => ['index', 'edit', 'update', 'destroy']
+    ]);
+
+    Route::name ('orphans.')->prefix('orphans')->group(function () {
+        Route::name ('index')->get ('/', 'AdminController@orphans');
+        Route::name ('destroy')->delete ('/', 'AdminController@destroy');
+    });
+
 });
 
 Route::middleware ('auth', 'verified')->group (function () {
@@ -20,6 +29,7 @@ Route::middleware ('auth', 'verified')->group (function () {
         Route::prefix('cours')->group(function () {
             Route::name ('description')->put ('{cours}/description', 'CoursController@descriptionUpdate');
         });
+        Route::name ('rating')->put ('rating/{cours}', 'CoursController@rate');
         Route::name('profs')->get('{cours}/profs', 'CoursController@profs');
         Route::name ('profs.update')->put ('{cours}/profs', 'CoursController@profsUpdate');
     });

@@ -7,6 +7,7 @@
         <form method="POST" action="{{ route('cours.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group{{ $errors->has('cours') ? ' is-invalid' : '' }}">
+                <label>@lang('Image du cours :')</label>
                 <div class="custom-file">
                     <input type="file" id="cours" name="image"
                            class="{{ $errors->has('cours') ? ' is-invalid ' : '' }}custom-file-input" required>
@@ -28,6 +29,18 @@
                         <option value="{{ $matiere->id }}">{{ $matiere->name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="user_id">@lang('Professeur :')</label>
+                <select id="user_id" name="user_id" class="form-control">
+                    @foreach($profs as $prof)
+                        <option value="{{ $prof->id }}">{{ $prof->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lien_id">@lang('Lien du cours :')</label>
+                <input type="url" name="lien" class="form-control" placeholder="Saisir le lien du cours" value="https://www.google.com"/>
             </div>
             @include('partials.form-group', [
                 'title' => __('Description (optionnelle)'),

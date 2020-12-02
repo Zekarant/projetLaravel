@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreateProfCourTable extends Migration
+class CreateCoursProfTable extends Migration
 {
     /**
      * Run the migrations.
@@ -11,12 +11,12 @@ class CreateProfCourTable extends Migration
      */
     public function up()
     {
-        Schema::create('prof_cour', function (Blueprint $table) {
+        Schema::create('cours_prof', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('prof_id');
-            $table->unsignedInteger('cour_id');
+            $table->unsignedInteger('cours_id');
             $table->foreign('prof_id')->references('id')->on('profs')->onDelete('cascade');
-            $table->foreign('cour_id')->references('id')->on('cours')->onDelete('cascade');
+            $table->foreign('cours_id')->references('id')->on('cours')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateProfCourTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prof_cour');
+        Schema::dropIfExists('cours_prof');
     }
 }

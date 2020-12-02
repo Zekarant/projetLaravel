@@ -13,6 +13,12 @@ class User extends Authenticatable
         'name', 'email', 'password', 'settings'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'email_verified_at',
+    ];
+
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -39,6 +45,11 @@ class User extends Authenticatable
     public function profs()
     {
         return $this->hasMany (Prof::class);
+    }
+
+    public function coursRated()
+    {
+        return $this->belongsToMany (Cours::class);
     }
 
 }
