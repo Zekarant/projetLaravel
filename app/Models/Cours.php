@@ -20,8 +20,9 @@ class Cours extends Model
 
     public function prof()
     {
-        return $this->belongsToMany(Prof::class, 'prof_id');
+        return $this->belongsTo(Prof::class);
     }
+
     public function users()
     {
         return $this->belongsToMany (User::class)->withPivot('rating');

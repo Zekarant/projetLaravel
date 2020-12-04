@@ -54,7 +54,7 @@ class CoursRepository
 
     public function getImagesForAlbum($slug)
     {
-        $query = Cours::latestWithUser ()->whereHas ('profs', function ($query) use ($slug) {
+        $query = Cours::latestWithUser ()->whereHas ('prof', function ($query) use ($slug) {
             $query->whereSlug ($slug);
         });
         return $this->paginateAndRate ($query);

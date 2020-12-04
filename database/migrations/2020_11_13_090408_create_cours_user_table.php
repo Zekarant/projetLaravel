@@ -10,11 +10,12 @@ class CreateCoursUserTable extends Migration
             $table->timestamps();
             $table->integer('rating');
             $table->unsignedInteger('user_id')->index();
-            $table->unsignedInteger('cour_id')->index();
+            $table->unsignedInteger('cours_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('cour_id')->references('id')->on('cours')->onDelete('cascade');
+            $table->foreign('cours_id')->references('id')->on('cours')->onDelete('cascade');
         });
     }
+
     public function down()
     {
         Schema::drop('cours_user');

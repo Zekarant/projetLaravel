@@ -39,8 +39,8 @@
                     @endisset
                     <div class="card-footer text-muted">
                         <em>
-                            <a href="{{ route('user', $cour->user->id) }}" data-toggle="tooltip"
-                               title="{{ __('Voir les cours de ') . $cour->user->name }}">{{ $cour->user->name }}</a>
+                            <a href="{{ route('prof', $cour->prof->slug) }}" data-toggle="tooltip"
+                               title="{{ __('Voir les cours de ') . $cour->prof->name }}">{{ $cour->prof->name }}</a>
                         </em>
                         <div class="pull-right">
                             <em>
