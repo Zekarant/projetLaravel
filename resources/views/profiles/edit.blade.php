@@ -24,7 +24,6 @@
                 <input id="pagination" name="pagination" type="number" data-slider-min="3" data-slider-max="20"
                        data-slider-step="1" data-slider-value="{{ $user->settings->pagination }}"/><br>
             </div>
-            <a href="{{ route('profile.show', $user->id) }}" class="btn btn-warning invisible" role="button" aria-disabled="true"><i class="fas fa-dolly fa-lg"></i> @lang('Exporter mes données personnelles')</a>
             @component('components.button')
                 @lang('Envoyer')
             @endcomponent

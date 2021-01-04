@@ -21,10 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4affca1a-f2c4-4d05-a862-e82ded2a2e12" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Cours.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Cours.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/CoursRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/CoursRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_13_090408_create_cours_user_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_13_090408_create_cours_user_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/profiles/data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profiles/data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profiles/edit.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,6 +219,10 @@
       <workItem from="1606830083600" duration="1188000" />
       <workItem from="1606915678247" duration="7315000" />
       <workItem from="1606935758957" duration="1594000" />
+      <workItem from="1607071186154" duration="531000" />
+      <workItem from="1607072607397" duration="206000" />
+      <workItem from="1607072908381" duration="4924000" />
+      <workItem from="1609762215280" duration="76000" />
     </task>
     <servers />
   </component>
@@ -237,72 +243,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="475" y="55" key="#PHP" timestamp="1603029006853">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="475" y="55" key="#PHP/0.0.1536.824@0.0.1536.824" timestamp="1603029006853" />
-    <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1603021783191">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824@0.0.1536.824" timestamp="1603021783191" />
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603292569968">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1603292569968" />
-    <state x="545" y="325" key="ComposerInitDialogKey" timestamp="1601393697884">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="545" y="325" key="ComposerInitDialogKey/0.0.1536.824@0.0.1536.824" timestamp="1601393697884" />
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1604498066351">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1604498066351" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1604498066366">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1604498066366" />
-    <state x="552" y="135" key="NewPhpClassDialog" timestamp="1603022638575">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="552" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1603022638575" />
-    <state x="604" y="336" key="NewPhpFileDialog" timestamp="1601477285535">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="604" y="336" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1601477285535" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1606922305584">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1606922305584" />
-    <state x="407" y="146" width="672" height="678" key="search.everywhere.popup" timestamp="1602687277590">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="407" y="146" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1602687277590" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

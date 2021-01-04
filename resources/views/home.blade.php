@@ -14,9 +14,9 @@
                 {{ session('updated') }}
             </div>
         @endif
-            @isset($prof)
-                <h2 class="text-title mb-3">Cours de {{ $prof->name }}</h2>
-            @endif
+        @isset($prof)
+            <h2 class="text-title mb-3">Cours de {{ $prof->name }}</h2>
+        @endif
         @isset($matiere)
             <h2 class="text-title mb-3">{{ $matiere->name }}</h2>
         @endif
@@ -26,94 +26,94 @@
         <div class="d-flex justify-content-center">
             {{ $cours->links() }}
         </div>
-        <div class="card-columns">
+        <div class="row">
             @foreach($cours as $cour)
-                <div class="card" id="cours{{ $cour->id }}">
-                        <a href="{{ $cour->lien }}"><img class="card-img-top"
-                             src="{{ url('storage/' . $cour->name) }}"
-                                        alt="cours" width="250" height="200"></a>
-                    @isset($cour->description)
-                        <div class="card-body">
-                            <p class="card-text">{{ $cour->description }}</p>
-                        </div>
-                    @endisset
-                    <div class="card-footer text-muted">
-                        <em>
-                            <a href="{{ route('prof', $cour->prof->slug) }}" data-toggle="tooltip"
-                               title="{{ __('Voir les cours de ') . $cour->prof->name }}">{{ $cour->prof->name }}</a>
-                        </em>
-                        <div class="pull-right">
-                            <em>
-                                {{ $cour->created_at->formatLocalized('%x') }}
-                            </em>
-                        </div>
-
-
-                        <div class="star-rating" id="{{ $cour->id }}">
-                            <span class="pull-right">
-                                @adminOrOwner($cour->user_id)
-                                    <a class="toggleIcons"
-                                       href="#">
-                                    <i class="fa fa-cog"></i>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6" style="padding: 0px">
+                                    <a href="{{ $cour->lien }}" target="_blank">
+                                        <img class="card-img-top"
+                                             src="{{ url('storage/' . $cour->name) }}"
+                                             alt="cours" height="350">
                                     </a>
-                                    <span class="menuIcons" style="display: none">
-                                        <a class="form-delete text-danger"
-                                           href="{{ route('cours.destroy', $cour->id) }}"
-                                           data-toggle="tooltip"
-                                           title="@lang('Supprimer cette photo')">
-                                           <i class="fa fa-trash"></i>
-                                        </a>
-                                        <a class="description-manage"
-                                           href="{{ route('cours.description', $cour->id) }}"
-                                           data-toggle="tooltip"
-                                           title="@lang('Gérer la description')">
-                                           <i class="fa fa-comment"></i>
-                                        </a>
-                                        <a class="matiere-edit"
-                                           data-id="{{ $cour->matiere_id }}"
-                                           href="{{ route('cours.update', $cour->id) }}"
-                                           data-toggle="tooltip"
-                                           title="@lang('Changer de matière')">
-                                           <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="profs-manage"
-                                           href="{{ route('cours.profs', $cour->id) }}"
-                                           data-toggle="tooltip"
-                                           title="@lang('Gérer les professeurs')">
-                                            <i class="fa fa-folder-open"></i>
-                                        </a>
-                                    </span>
-                                    <form action="{{ route('cours.destroy', $cour->id) }}" method="POST" class="hide">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                @endadminOrOwner
-                            </span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card-body">
+                                        <h2 class="text-center">Cours n°{{ $cour->id }}</h2>
+                                        <div class="star-rating" id="{{ $cour->id }}">
+									<span class="pull-right">
+										@adminOrOwner($cour->user_id)
+											<a class="toggleIcons"
+                                               href="#">
+											<i class="fa fa-cog"></i>
+											</a>
+											<span class="menuIcons" style="display: none">
+												<a class="form-delete text-danger"
+                                                   href="{{ route('cours.destroy', $cour->id) }}"
+                                                   data-toggle="tooltip"
+                                                   title="@lang('Supprimer cette photo')">
+												   <i class="fa fa-trash"></i>
+												</a>
+												<a class="description-manage"
+                                                   href="{{ route('cours.description', $cour->id) }}"
+                                                   data-toggle="tooltip"
+                                                   title="@lang('Gérer la description')">
+												   <i class="fa fa-comment"></i>
+												</a>
+												<a class="matiere-edit"
+                                                   data-id="{{ $cour->matiere_id }}"
+                                                   href="{{ route('cours.update', $cour->id) }}"
+                                                   data-toggle="tooltip"
+                                                   title="@lang('Changer de matière')">
+												   <i class="fa fa-edit"></i>
+												</a>
+											</span>
+											<form action="{{ route('cours.destroy', $cour->id) }}" method="POST" class="hide">
+												@csrf
+                                                @method('DELETE')
+											</form>
+										@endadminOrOwner
+									</span>
+                                        </div>
+                                        <hr>
+                                        @isset($cour->description)
+                                            <p class="card-text">{{ $cour->description }}</p>
+                                            <hr>
+                                        @endisset
+                                        <div class="star-rating text-center" id="{{ $cour->id }}">
+                                            <span class="count-number">({{ $cour->users->count()}})</span>
+                                            <div id="{{ $cour->id . '.5' }}" data-toggle="tooltip" title="5" @if($cour->rate > 4) class="star-yellow" @endif>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div id="{{ $cour->id . '.4' }}" data-toggle="tooltip" title="4" @if($cour->rate > 3) class="star-yellow" @endif>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div id="{{ $cour->id . '.3' }}" data-toggle="tooltip" title="3" @if($cour->rate > 2) class="star-yellow" @endif>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div id="{{ $cour->id . '.2' }}" data-toggle="tooltip" title="2" @if($cour->rate > 1) class="star-yellow" @endif>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div id="{{ $cour->id . '.1' }}" data-toggle="tooltip" title="1" @if($cour->rate > 0) class="star-yellow" @endif>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <em>
+                                            Par <a href="{{ route('prof', $cour->prof->slug) }}" data-toggle="tooltip"
+                                               title="{{ __('Voir les cours de ') . $cour->prof->name }}">{{ $cour->prof->name }}</a> le {{ $cour->created_at->formatLocalized('%x') }}
+                                                dans la matière <a href="{{ route('matiere', $cour->matiere->slug) }}" title="{{ __('Voir les cours dans la matière ') . $cour->matiere->name }}" data-toggle="tooltip"
+                                                >{{ $cour->matiere->name }}</a>
+                                        </em>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="star-rating" id="{{ $cour->id }}">
-                            <span class="count-number">({{ $cour->users->count() }})</span>
-                            <div id="{{ $cour->id . '.5' }}" data-toggle="tooltip" title="5" @if($cour->rate > 4) class="star-yellow" @endif>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div id="{{ $cour->id . '.4' }}" data-toggle="tooltip" title="4" @if($cour->rate > 3) class="star-yellow" @endif>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div id="{{ $cour->id . '.3' }}" data-toggle="tooltip" title="3" @if($cour->rate > 2) class="star-yellow" @endif>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div id="{{ $cour->id . '.2' }}" data-toggle="tooltip" title="2" @if($cour->rate > 1) class="star-yellow" @endif>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div id="{{ $cour->id . '.1' }}" data-toggle="tooltip" title="1" @if($cour->rate > 0) class="star-yellow" @endif>
-                                <i class="fas fa-star"></i>
-                            </div>
-
                     </div>
                 </div>
             @endforeach
-        </div>
-        <div class="d-flex justify-content-center">
-            {{ $cours->links() }}
         </div>
     </main>
     @if($cours->count() == 0)

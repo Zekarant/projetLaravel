@@ -47,27 +47,5 @@
             </div>
         </div>
         <br>
-        @unless($cours->isEmpty())
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Cours postés par ' . $user->name)</h5>
-                    <table class="table" style="margin-bottom: 140px">
-                        @foreach($cours as $image)
-                            <tr>
-                                <td><h3>Cours n°{{ $image->id }}</h3>
-                                    <hr>
-                                    Matière du cours : {{ $image->matiere->name }}<br/>
-                                Cours posté le {{ $image->created_at->formatLocalized('%x') }}</td>
-                                <td>
-                                    <div class="hover_img">
-                                        <span><img src="{{ url('storage/' . $image->name) }}" alt="image" height="150" /></span>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
-                </div>
-            </div>
-        @endunless
     </main>
 @endsection
